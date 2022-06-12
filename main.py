@@ -11,6 +11,7 @@ PLAYER_STATS_SEASON = 2021
 PLAYER_ID_GET_URL = "https://www.balldontlie.io/api/v1/players"
 PLAYER_STATS_URL = "https://www.balldontlie.io/api/v1/season_averages"
 PLAYER_IMAGE_URL = f"http://data.nba.net/data/10s/prod/v1/{PLAYER_STATS_SEASON}/players.json"
+UNKNOWN_IMAGE_URL = "https://i.ibb.co/yh2KG8P/unknown.jpg"
 TEAM_URL = "https://www.balldontlie.io/api/v1/teams"
 
 #Basic setup
@@ -84,12 +85,13 @@ def homepage():
                 IMAGE_ID = IMAGE_ID_MAPPING_DICT[PLAYER_FULL_NAME]
                 PLAYER_PHOTO_URL = f"https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/{IMAGE_ID}.png"
                 return render_template("index.html", form=player_form, name=PLAYER_FULL_NAME, team=PLAYER_TEAM, position=PLAYER_POSITION, height=PLAYER_HEIGHT, ppg=PLAYER_PPG, rpg=PLAYER_RPG, apg=PLAYER_APG, image_url=PLAYER_PHOTO_URL, is_post=True, found=True)
-
-            #This is to exclude the scenarios that user not typing 100% correctly of player's name(eg. jame -> Lebron James), but stil can find informatio in player's API, but not in image API
-            return render_template("index.html", form=player_form, not_found=True)
+            #Find the player but did not have image
+            else:
+                return render_template("index.html", form=player_form, name=PLAYER_FULL_NAME, team=PLAYER_TEAM, position=PLAYER_POSITION, height=PLAYER_HEIGHT, ppg=PLAYER_PPG, rpg=PLAYER_RPG, apg=PLAYER_APG, image_url=UNKNOWN_IMAGE_URL, is_post=True, found=True)
 
         #len(PLAYER_INFO_DATA["data"]) == 0:
         else:
+            print("no2")
             return render_template("index.html", form=player_form, not_found=True)
 
     return render_template("index.html", form=player_form)
