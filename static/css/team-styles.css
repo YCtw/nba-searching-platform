@@ -1,0 +1,80 @@
+body {
+  background-image: url("https://i.postimg.cc/fyMrd0Np/basketball.jpg");
+  background-size: 1600px 1000px;
+}
+
+.content {
+  background-color: white;
+  width:500px;
+  height:600px;
+  margin-top:60px;
+  text-align: center;
+  opacity: 0.9;
+  border-radius: 8%;
+}
+
+.btn {
+  opacity: 1;
+}
+
+.player-btn {
+  margin-top: 50px;
+  margin-right: 50px;
+}
+
+.team-btn {
+  margin-top: 50px;
+}
+
+.submit-btn {
+  font-weight: bold;
+}
+
+.team-label {
+  margin-top: 25px;
+  margin-right:12px;
+}
+.team-input {
+  margin-top: 25px;
+}
+
+
+.submit-btn {
+  margin-top: 20px;
+}
+
+table {
+  margin-left: 60px;
+}
+
+.team-logo {
+  width: 180px;
+  margin-top: 90px;
+}
+
+.team-stats {
+  padding-left: 1px;
+  text-align:left;
+}
+
+h5 {
+  font-size:15px;
+  margin-bottom: 8px;
+}
+
+.team-name-result {
+  margin-top: 90px;
+}
+
+.error-msg {
+    margin-bottom: 0;
+    margin-left: 32px;
+    font-weight: bold;
+    color: red;
+}
+
+.no-mapping {
+    color: red;
+    font-size: 20px;
+    margin-top:100px;
+}

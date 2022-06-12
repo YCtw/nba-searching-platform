@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>NBA Search</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link rel="stylesheet" href="static/css/team-styles.css">
+</head>
+
+<body>
+  <center>
+  <div class="content">
+    <a href="{{url_for('homepage')}}" class="btn btn-dark btn-lg player-btn" ><strong>Player Info</strong></a>
+    <a href="{{url_for('team')}}"  class="btn btn-dark btn-lg team-btn"><strong>Team Info</strong></a>
+    <form method="post" action="" novalidate>
+      {{form.csrf_token}}
+      <strong>{{form.team.label(class="team-label")}}</strong>{{form.team(class="team-input")}}<br/>
+        {%for error in form.team.errors %}
+        <p class="error-msg">{{error}}</p>{% endfor %}
+        <input class="submit-btn" type="submit" value="Search">
+    </form><br/>
+    {% if is_post: %}
+    <table>
+      <tbody>
+        <tr>
+          <td>
+            <img class="team-logo" src={{logo_url}} alt="-team-logo" />
+          </td>
+          <td class="team-stats">
+            <h5 class="team-name-result"><strong>Full Name: {{team_name}}</strong></h5>
+            <h5 class="team-abbreviation-result"><strong>Abbreviation: {{abbreviation}}</strong></h5>
+            <h5 class="team-conference-result"><strong>Conference: {{conference}}</strong></h5>
+            <h5 class="team-division-result"><strong>Division: {{division}}</strong><h5>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    {% endif %}
+    {% if not_found %}
+    <h3 class="no-mapping"><strong>No mapping result</strong></h3>
+    {% endif %}
+  </div>
+  </center>
+</body>
+
+</html>

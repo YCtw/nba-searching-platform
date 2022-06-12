@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>NBA Search</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link rel="stylesheet" href="static/css/NBA-API-styles.css">
+</head>
+
+<body>
+  <center>
+    <div class="content">
+      <a href="{{url_for('homepage')}}" class="btn btn-dark btn-lg player-btn" ><strong>Player Info</strong></a>
+      <a href="{{url_for('team')}}"  class="btn btn-dark btn-lg team-btn"><strong>Team Info</strong></a>
+      <form method="post" action="" novalidate>
+        {{form.csrf_token}}
+        <strong>{{form.first_name.label(class="first-label")}}</strong>{{form.first_name(class="first-input")}}<br/>
+        {%for error in form.first_name.errors %}
+        <p class="error-msg">{{error}}</p>{% endfor %}
+        <strong>{{form.last_name.label(class="second-label")}}</strong>{{form.last_name(class="second-input")}}<br/>
+        {%for error in form.last_name.errors %}
+        <p class="error-msg">{{error}}</p>{% endfor %}
+        <input class="submit-btn" type="submit" value="Search">
+      </form><br />
+      {% if is_post: %}
+      <table>
+        <tbody>
+          <tr>
+            <td>
+              <img class="player-image" src={{image_url}} alt="player-image" />
+            </td>
+            <td class="stats">
+              <h5 class="name-result"><strong>Name: {{name}}</strong></h5>
+              <h5 class="team-result"><strong>Team: {{team}}</strong></h5>
+              <h5 class="position-result"><strong>Position: {{position}}</strong></h5>
+              <h5 class="height-result"><strong>Height: {{height}}</strong><h5>
+              <h5 class="ppg-result"><strong>PPG: {{ppg}}</strong><h5>
+              <h5 class="rpg-result"><strong>RPG: {{rpg}}</strong><h5>
+              <h5 class="apg-result"><strong>APG: {{apg}}</strong><h5>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      {% endif %}
+      {% if not_found %}
+      <h3 class="no-mapping"><strong>No mapping result</strong></h3>
+      {% endif %}
+    </div>
+  </center>
+</body>
+
+</html>
