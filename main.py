@@ -91,7 +91,6 @@ def homepage():
 
         #len(PLAYER_INFO_DATA["data"]) == 0:
         else:
-            print("no2")
             return render_template("index.html", form=player_form, not_found=True)
 
     return render_template("index.html", form=player_form)
