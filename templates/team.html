@@ -15,7 +15,7 @@
     <a href="{{url_for('team')}}"  class="btn btn-dark btn-lg team-btn"><strong>Team Info</strong></a>
     <form method="post" action="" novalidate>
       {{form.csrf_token}}
-      <strong>{{form.team.label(class="team-label")}}</strong>{{form.team(class="team-input")}}<br/>
+      <strong>{{form.team.label(class="team-label")}}</strong>{{form.team(class="team-input", autofocus=True)}}<br/>
         {%for error in form.team.errors %}
         <p class="error-msg">{{error}}</p>{% endfor %}
         <input class="submit-btn" type="submit" value="Search">
