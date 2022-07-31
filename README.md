@@ -1,5 +1,7 @@
 # nba-searching-platform
 NBA Searching platform
+Website Link: https://nbasearching.herokuapp.com
+NBA Searching platform
 Video Demo: https://youtu.be/hj5BEeZCG1M
 
 This is a platform for you to search for 2021 NBA players & Teams' information.
