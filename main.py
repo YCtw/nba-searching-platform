@@ -7,7 +7,7 @@ import requests
 from teamlogo import team_logo_dict
 
 #Information of data resource
-PLAYER_STATS_SEASON = 2021
+PLAYER_STATS_SEASON = 2022
 PLAYER_ID_GET_URL = "https://www.balldontlie.io/api/v1/players"
 PLAYER_STATS_URL = "https://www.balldontlie.io/api/v1/season_averages"
 PLAYER_IMAGE_URL = f"http://data.nba.net/data/10s/prod/v1/{PLAYER_STATS_SEASON}/players.json"
@@ -69,25 +69,24 @@ def homepage():
             PLAYER_RPG = STATS_DATA["data"][0]["reb"]
             PLAYER_APG = STATS_DATA["data"][0]["ast"]
 
-            #Get player's profile image
-            IMAGE_RESPONSE = requests.get(url=PLAYER_IMAGE_URL)
-            IMAGE_DATA = IMAGE_RESPONSE.json()
-            IMAGE_RAW_LIST = IMAGE_DATA["league"]["standard"]
-            IMAGE_INFO_LIST = []
-            IMAGE_ID_MAPPING_DICT = {}
-            for INFO in IMAGE_RAW_LIST:
-                IMAGE_FULL_NAME = INFO["firstName"] + " " + INFO["lastName"]
-                IMAGE_PLAYER_ID = INFO["personId"]
-                IMAGE_ID_MAPPING_DICT[IMAGE_FULL_NAME] = IMAGE_PLAYER_ID
-                IMAGE_INFO_LIST.append(IMAGE_FULL_NAME)
+            #Get player's profile image - skip this part since the API for player's image is deprecated.
+            # IMAGE_RESPONSE = requests.get(url=PLAYER_IMAGE_URL)
+            # IMAGE_DATA = IMAGE_RESPONSE.json()
+            # IMAGE_RAW_LIST = IMAGE_DATA["league"]["standard"]
+            # IMAGE_INFO_LIST = []
+            # IMAGE_ID_MAPPING_DICT = {}
+            # for INFO in IMAGE_RAW_LIST:
+            #     IMAGE_FULL_NAME = INFO["firstName"] + " " + INFO["lastName"]
+            #     IMAGE_PLAYER_ID = INFO["personId"]
+            #     IMAGE_ID_MAPPING_DICT[IMAGE_FULL_NAME] = IMAGE_PLAYER_ID
+            #     IMAGE_INFO_LIST.append(IMAGE_FULL_NAME)
             #Photo url has the same structure, just the ID has slight difference
-            if PLAYER_FULL_NAME in IMAGE_INFO_LIST:
-                IMAGE_ID = IMAGE_ID_MAPPING_DICT[PLAYER_FULL_NAME]
-                PLAYER_PHOTO_URL = f"https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/{IMAGE_ID}.png"
-                return render_template("index.html", form=player_form, name=PLAYER_FULL_NAME, team=PLAYER_TEAM, position=PLAYER_POSITION, height=PLAYER_HEIGHT, ppg=PLAYER_PPG, rpg=PLAYER_RPG, apg=PLAYER_APG, image_url=PLAYER_PHOTO_URL, is_post=True, found=True)
+            # if PLAYER_FULL_NAME in IMAGE_INFO_LIST:
+            #     IMAGE_ID = IMAGE_ID_MAPPING_DICT[PLAYER_FULL_NAME]
+            #     PLAYER_PHOTO_URL = f"https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/{IMAGE_ID}.png"
+            #     return render_template("index.html", form=player_form, name=PLAYER_FULL_NAME, team=PLAYER_TEAM, position=PLAYER_POSITION, height=PLAYER_HEIGHT, ppg=PLAYER_PPG, rpg=PLAYER_RPG, apg=PLAYER_APG, image_url=PLAYER_PHOTO_URL, is_post=True, found=True)
             #Find the player but did not have image
-            else:
-                return render_template("index.html", form=player_form, name=PLAYER_FULL_NAME, team=PLAYER_TEAM, position=PLAYER_POSITION, height=PLAYER_HEIGHT, ppg=PLAYER_PPG, rpg=PLAYER_RPG, apg=PLAYER_APG, image_url=UNKNOWN_IMAGE_URL, is_post=True, found=True)
+            return render_template("index.html", form=player_form, name=PLAYER_FULL_NAME, team=PLAYER_TEAM, position=PLAYER_POSITION, height=PLAYER_HEIGHT, ppg=PLAYER_PPG, rpg=PLAYER_RPG, apg=PLAYER_APG, image_url=UNKNOWN_IMAGE_URL, is_post=True, found=True)
 
         #len(PLAYER_INFO_DATA["data"]) == 0:
         else:
@@ -123,7 +122,4 @@ def team():
 
 if __name__ == "__main__":
     app.run(debug=True)
-
-
-
 
