@@ -1,6 +1,6 @@
 # nba-searching-platform
-Website Link: https://nbasearching.herokuapp.com<br />
-Video Demo: https://youtu.be/hj5BEeZCG1M
+#### Website Link: https://nbasearching.herokuapp.com<br />
+#### Video Demo: https://youtu.be/hj5BEeZCG1M
 
 :basketball: Description:
 1. This is a platform for you to search for 2022-2023 NBA players & Teams' information.
