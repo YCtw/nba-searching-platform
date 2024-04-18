@@ -7,12 +7,15 @@ import requests
 from teamlogo import team_logo_dict
 
 #Information of data resource
-PLAYER_STATS_SEASON = 2022
-PLAYER_ID_GET_URL = "https://www.balldontlie.io/api/v1/players"
-PLAYER_STATS_URL = "https://www.balldontlie.io/api/v1/season_averages"
+PLAYER_STATS_SEASON = 2023
+PLAYER_ID_GET_URL = "https://api.balldontlie.io/v1/players"
+PLAYER_STATS_URL = "https://api.balldontlie.io/v1/stats"
 PLAYER_IMAGE_URL = f"http://data.nba.net/data/10s/prod/v1/{PLAYER_STATS_SEASON}/players.json"
 UNKNOWN_IMAGE_URL = "https://i.ibb.co/yh2KG8P/unknown.jpg"
-TEAM_URL = "https://www.balldontlie.io/api/v1/teams"
+TEAM_URL = "http://api.balldontlie.io/v1/teams"
+headers = {
+    "Authorization": "b8b9f4ce-b62a-4095-b87f-13a93cf38e3f"
+}
 
 #Basic setup
 app = Flask(__name__)
@@ -35,13 +38,13 @@ def homepage():
     if player_form.validate_on_submit() == True:
         first_name = player_form.first_name.data
         last_name = player_form.last_name.data
-        full_name = first_name +" "+last_name
 
         # Call the player information API to get the ID and position
         PLAYER_PARAMS = {
-            "search":full_name
+            "first_name":first_name,
+            "last_name":last_name
         }
-        PLAYER_INFO_RESPONSE = requests.get(url=PLAYER_ID_GET_URL, params=PLAYER_PARAMS)
+        PLAYER_INFO_RESPONSE = requests.get(url=PLAYER_ID_GET_URL, headers=headers, params=PLAYER_PARAMS)
         PLAYER_INFO_DATA = PLAYER_INFO_RESPONSE.json()
         #If found this player
         if len(PLAYER_INFO_DATA["data"]) > 0:
@@ -51,9 +54,7 @@ def homepage():
             PLAYER_FULL_NAME = PLAYER_FIRST_NAME + " " + PLAYER_LAST_NAME
             PLAYER_TEAM = PLAYER_INFO_DATA["data"][0]["team"]["full_name"]
             PLAYER_POSITION = str(PLAYER_INFO_DATA["data"][0]["position"])
-            PLAYER_FEET = str(PLAYER_INFO_DATA["data"][0]["height_feet"])
-            PLAYER_INCHES = str(PLAYER_INFO_DATA["data"][0]["height_inches"])
-            PLAYER_HEIGHT = PLAYER_FEET + "-" + PLAYER_INCHES
+            PLAYER_HEIGHT = str(PLAYER_INFO_DATA["data"][0]["height"])
             #Handle the situation that we don't get this player's height
             if "None" in PLAYER_HEIGHT:
                 PLAYER_HEIGHT = "N/A"
@@ -61,9 +62,10 @@ def homepage():
             #Get player's season stats, use the ID we got from above
             STATS_PARAMS = {
                 "player_ids[]":PLAYER_ID,
-                "season": PLAYER_STATS_SEASON
+                "seasons[]": PLAYER_STATS_SEASON
             }
-            STATS_RESPONSE = requests.get(url=PLAYER_STATS_URL, params=STATS_PARAMS)
+            STATS_RESPONSE = requests.get(url=PLAYER_STATS_URL, headers=headers, params=STATS_PARAMS)
+            print(STATS_RESPONSE.text)
             STATS_DATA = STATS_RESPONSE.json()
             PLAYER_PPG = STATS_DATA["data"][0]["pts"]
             PLAYER_RPG = STATS_DATA["data"][0]["reb"]
@@ -101,7 +103,7 @@ def team():
     if team_form.validate_on_submit() == True:
         team_input = team_form.team.data
         team_input = team_input.title()
-        TEAM_RESPONSE = requests.get(url = TEAM_URL)
+        TEAM_RESPONSE = requests.get(url = TEAM_URL, headers=headers)
         TEAM_DATA_LIST = TEAM_RESPONSE.json()["data"]
         for team in TEAM_DATA_LIST:
             #User can either input heat or miami heat, both will work
@@ -122,7 +124,3 @@ def team():
 
 if __name__ == "__main__":
     app.run(debug=True)
-
-
-
-
