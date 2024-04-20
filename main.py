@@ -6,7 +6,6 @@ from flask_bootstrap import Bootstrap
 import requests
 import os
 from teamlogo import team_logo_dict
-from boto.s3.connection import S3Connection
 
 #Information of data resource
 PLAYER_STATS_SEASON = 2023
@@ -16,7 +15,7 @@ PLAYER_IMAGE_URL = f"http://data.nba.net/data/10s/prod/v1/{PLAYER_STATS_SEASON}/
 UNKNOWN_IMAGE_URL = "https://i.ibb.co/yh2KG8P/unknown.jpg"
 TEAM_URL = "http://api.balldontlie.io/v1/teams"
 headers = {
-    "Authorization":S3Connection(os.environ['HEADER_CREDENTIAL'])
+    "Authorization":os.getenv('HEADER_CREDENTIAL')
 }
 
 #Basic setup
