@@ -65,7 +65,7 @@ def homepage():
                 #Get player's season stats, use the ID we got from above
                 STATS_PARAMS = {
                     "player_ids[]":PLAYER_ID,
-                    "seasons[]": PLAYER_STATS_SEASON
+                    "seasons[]":PLAYER_STATS_SEASON
                 }
                 STATS_RESPONSE = requests.get(url=PLAYER_STATS_URL, headers=headers, params=STATS_PARAMS)
                 print(STATS_RESPONSE.text)
