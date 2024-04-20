@@ -5,7 +5,7 @@
 <br>
 
 :basketball: Description:
-- This is a platform for you to search for 2022-2023 NBA players & Teams' information.
+- This is a platform for you to search for current NBA players & Teams' information.
 - Front end contains two html parts: **index.html** (players part) & **team.html** (teams parts)
 - Back-end was written in **main.py**
   
